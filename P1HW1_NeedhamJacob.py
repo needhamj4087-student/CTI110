@@ -6,15 +6,41 @@
 #Calculate Exponents
 
 print(
-    "--------Exponents--------"
+    "--------Calculating Exponents--------"
 )
 print()
 
-base = int(input("Enter a base number: "))
-exponent = int(input("Enter an exponent: "))
+base = int(input("Enter an integer as the base value: "))
+exponent = int(input("Enter an integer as the exponent: "))
 
 result = base ** exponent
 
+print()
+
 print(
-    base, "raised to the power of", exponent, "is", result
+    base, "raised to the power of", exponent, "is", result, "!!"
+)
+print()
+
+
+#Calculating Addition and Subtraction
+
+
+
+print(
+    "--------Addition and Subtraction--------"
+)
+print()
+
+num1 = int(input("enter you starting integer: "))
+num2 = int(input("enter an integer to add: "))
+num3 = int(input("enter an integer to be subtracted: "))
+
+sum_result = num1 + num2
+final_result = sum_result - num3
+
+print()
+
+print(
+    num1, "+", num2, "-", num3, "is equal to", final_result,
 )
