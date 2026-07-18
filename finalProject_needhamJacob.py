@@ -410,7 +410,7 @@ def forest_route(slimes):
 
     show_progress("forest")
 
-    print("\nThe Forest grows Restless as you wonder on....")
+    print("\nThe Forest grows Restless as you wander on....")
     print("darkness closes in...")
     pause()
 
@@ -517,7 +517,7 @@ def mountain_route(slimes):
 
     show_progress("mountain")
 
-    print("\nThe Mountain Stirs all around ye as you wonder on....")
+    print("\nThe Mountain Stirs all around ye as you wander on....")
     pause()
 
     encounter_slime(slimes[2])
@@ -590,7 +590,7 @@ def ending():
 
         print()
 
-        print("An Inventoryfull of:")
+        print("An Inventory full of:")
 
         for item in player["inventory"]:
 
