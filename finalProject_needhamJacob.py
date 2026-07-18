@@ -48,7 +48,7 @@ NUMBER_OF_SLIMES = 5
 # =========================================================
 
 player = {
-    "name": "Little Goblin",
+    "name": "Mighty Goblin",
     "icon": GOBLIN,
 
     "hp": PLAYER_MAX_HP,
@@ -214,7 +214,7 @@ def pause():
 
 def pickup_item(item):
 
-    print(f"\nYou found a {item}!")
+    print(f"\nYou found a discarded {item}!")
 
     time.sleep(1)
 
@@ -230,7 +230,7 @@ def pickup_item(item):
 
     player["inventory"].append(item)
 
-    print(f"{item} added to inventory!")
+    print(f"A {item} has been added to inventory!")
 
     time.sleep(1)
 
@@ -278,7 +278,7 @@ def encounter_slime(slime):
 
     print()
     print("Enter Wild Blue Slime")
-    print(f"  {slime['icon']}  A {slime['name']} appears!")
+    print(f"  {slime['icon']}  A {slime['name']} appears, What will you do?!")
     print("=" * 45)
 
     print(f"Enemy HP: {slime['hp']}")
@@ -299,7 +299,7 @@ def player_attack(slime):
 
     while slime["hp"] > 0 and player["hp"] > 0:
 
-        print("\nChoose an attack")
+        print("\nChoose your next attack")
 
         print("1 - Sword")
 
@@ -318,7 +318,7 @@ def player_attack(slime):
 
             if not player["sword"]:
 
-                print("You don't have a sword!")
+                print("You don't yet have a sword!")
 
                 continue
 
@@ -326,7 +326,7 @@ def player_attack(slime):
 
             slime["hp"] -= damage
 
-            print(f"You slash for {damage} damage!")
+            print(f"You slashed it for {damage} damage!")
 
         # ------------------------------
         # Bow Attack
@@ -336,13 +336,13 @@ def player_attack(slime):
 
             if not player["bow"]:
 
-                print("You don't have a bow.")
+                print("You don't have a bow yet.")
 
                 continue
 
             if player["arrows"] <= 0:
 
-                print("No arrows remaining!")
+                print("No more arrows remaining, too bad!")
 
                 continue
 
@@ -352,15 +352,15 @@ def player_attack(slime):
 
             slime["hp"] -= damage
 
-            print(f"You shoot an arrow!")
+            print(f"You shoot an arrow, sighted at the Enemy!")
 
             print(f"Damage: {damage}")
 
-            print(f"Arrows left: {player['arrows']}")
+            print(f"Arrows left: {player['arrows']} Be Careful you save them for when you need them.")
 
         else:
 
-            print("Invalid choice.")
+            print("Invalid choice. Try again.")
 
             continue
 
@@ -376,7 +376,7 @@ def player_attack(slime):
 
             print(f"\n{slime['name']}  has been defeated!")
 
-            print("You may continue on your way.")
+            print("You may now continue on your way.")
 
             pause()
 
@@ -385,6 +385,11 @@ def player_attack(slime):
         # ------------------------------
 
         slime_attack()
+
+        if player["hp"] <= 0:
+            print("\nYou have fallen in this battle ...")
+            pause()
+            return
 
         print(f"Player HP: {player['hp']}")
 
@@ -406,9 +411,14 @@ def forest_route(slimes):
     show_progress("forest")
 
     print("\nThe Forest grows Restless as you wonder on....")
+    print("darkness closes in...")
     pause()
 
     encounter_slime(slimes[0])
+
+    if player["hp"] <= 0:
+        return
+
 
     player["progress"] += 1
 
@@ -420,15 +430,23 @@ def forest_route(slimes):
 
     encounter_slime(slimes[1])
 
+    if player["hp"] <= 0:
+        return
+
     player["progress"] += 1
 
     show_progress("forest")
 
 
-    print("\nYou discover a chest by the way...")
+    print("\nYou discover a chest by the wayside ...")
     pickup_item("Shield")
 
+    show_progress("forest")
+
     encounter_slime(slimes[2])
+
+    if player["hp"] <= 0:
+        return
 
     player["progress"] += 1
 
@@ -439,8 +457,11 @@ def forest_route(slimes):
 
     encounter_slime(slimes[3])
 
+    if player["hp"] <= 0:
+        return
 
-    print("\nHanging form the branch of a tree you spy....what?...")
+
+    print("\nHanging from the branch of a tree you spy....what?...")
     pause()
 
     pickup_item("Bow")
@@ -451,13 +472,16 @@ def forest_route(slimes):
 
     encounter_slime(slimes[4])
 
+    if player["hp"] <= 0:
+        return
+
     player["progress"] += 1
 
     show_progress("forest")
 
 def mountain_route(slimes):
 
-    print("\nHanging form the branch of a tree you spy....what?...")
+    print("\nHanging from the branch of a tree you spy....what?...")
     pause()
 
     pickup_item("Bow")
@@ -468,14 +492,20 @@ def mountain_route(slimes):
 
     encounter_slime(slimes[0])
 
+    if player["hp"] <= 0:
+        return
+
     player["progress"] += 1
 
     show_progress("mountain")
 
-    print("\nAs you Wipe the Slime from your sword and walk on...")
+    print("\nAs you check your quiver and walk on you think on your journey of life ...")
     pause()
 
     encounter_slime(slimes[1])
+
+    if player["hp"] <= 0:
+        return
 
     player["progress"] += 1
 
@@ -487,19 +517,25 @@ def mountain_route(slimes):
 
     show_progress("mountain")
 
-    print("\nThe Mountain Stirs as you wonder on....")
+    print("\nThe Mountain Stirs all around ye as you wonder on....")
     pause()
 
     encounter_slime(slimes[2])
+
+    if player["hp"] <= 0:
+        return
 
     player["progress"] += 1
 
     show_progress("mountain")
 
-    print("\nAs you Wipe the Slime from your sword and walk on...")
+    print("\nAs you Wipe the Slime from your sword and walk on pondering your path ....")
     pause()
 
     encounter_slime(slimes[3])
+
+    if player["hp"] <= 0:
+        return
 
     player["progress"] += 1
 
@@ -509,7 +545,7 @@ def mountain_route(slimes):
     pause()
 
 
-    print("\nYou discover a chest by the way...")  
+    print("\nYou discover a chest by the wayside hidden from under a bush ....")  
     pickup_item("Shield")
 
     player["progress"] += 1
@@ -517,6 +553,9 @@ def mountain_route(slimes):
     show_progress("mountain")
 
     encounter_slime(slimes[4])
+
+    if player["hp"] <= 0:
+        return
 
     player["progress"] += 1
 
@@ -536,21 +575,22 @@ def ending():
 
     if player["hp"] > 0:
 
-        print("CONGRATULATIONS!")
+        print("\nCONGRATULATIONS! You've completed this journey.")
+        print("\nOur Goblin friend has made it home to the tribe, with fresh meat to be had.")
 
         print()
 
-        print("The little goblin defeated all five slimes!")
+        print("The Mighty Goblin defeated all five slimes!")
 
         print()
 
         print("Final HP:", player["hp"])
 
-        print("Remaining Arrows:", player["arrows"])
+        print("Your Remaining Arrows:", player["arrows"])
 
         print()
 
-        print("Inventory:")
+        print("An Inventoryfull of:")
 
         for item in player["inventory"]:
 
@@ -578,13 +618,15 @@ def main():
 
         print("=" * 45)
 
-        print("        GOBLIN ADVENTURE")
+        print("GOBLIN ADVENTURE")
 
         print("=" * 45)
 
         print()
 
-        print("A tiny goblin begins with nothing...")
+        print("A Mighty Goblin begins with no weapon for defense...")
+        print("\nYou must Journey home by way of The Forest Trail or over The Mountain Pass")
+        print("\nWith a fresh kill on your shoulders and a broken bow, will you make it home?")
 
         time.sleep(2)
 
@@ -611,17 +653,21 @@ def main():
 
             return
 
-        if player["hp"] > 0:
-            break
+        if player["hp"] <= 0:
+            
 
-        print("\nYou have parished.....")
-        print()
+            print("\nYou have perished .....")
+            print()
 
-        print("Restarting game.....")
-        print()
-        print()
+            print("Restarting game .....")
+            print()
+            print()
 
-        time.sleep(3)
+            time.sleep(3)
+
+            continue
+        
+        break
 
     ending()
 
